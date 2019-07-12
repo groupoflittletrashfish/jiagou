@@ -1,0 +1,8 @@
+com.noname.demo:
+  Demo1: 不同线程调用同一对象的加锁方法
+  Demo2: 脏读的形成和解决
+  Demo3: 概念：一致性
+  Demo4: synchronized重入锁
+  Demo5: synchronized父子继承关系重入锁
+  Demo6: synchronized修饰类本身
+  Demo7: synchronized修饰对象
