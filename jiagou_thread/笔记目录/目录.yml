@@ -6,3 +6,7 @@ com.noname.demo:
   Demo5: synchronized父子继承关系重入锁
   Demo6: synchronized修饰类本身
   Demo7: synchronized修饰对象
+  Demo8: volatile关键字（强制线程使用主内存的值）
+  Demo9: volatile只保证可见性，不保证原子性
+  Demo10: wait和notify
+  Demo11: CountDownLatch的简单使用
