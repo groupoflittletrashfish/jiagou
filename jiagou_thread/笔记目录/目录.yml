@@ -15,3 +15,8 @@ com.noname.demo:
   Demo14: ConcurrentHashMap和CopyOnWrite的基础概念
   Demo15: ConcurrentLinkedQueue概念
   Demo16: BlockingQueue概念及常用队列
+  Demo17: DelayQueue的应用场景
+  Demo18: Master-Worker模式(重要)
+  Demo19: 线程池的概念
+  Demo20: 自定义线程池及参数说明(重要)
+  Demo21: newScheduledThreadPool的简单使用

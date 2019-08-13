@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -46,13 +47,28 @@ public class Demo16 {
         priorityBlockingQueue.add(task3);
         priorityBlockingQueue.add(task4);
 
-        System.out.println(priorityBlockingQueue.poll());       //取出顺序遵循排序接口
-        System.out.println(priorityBlockingQueue.poll());
-        System.out.println(priorityBlockingQueue.poll());
-        System.out.println(priorityBlockingQueue.poll());
+        //直接输出队列，顺序可能并不是正确的排序结果，但是在调用take的时候，一定会选择优先级最高的元素，即按照正确的排序结果
+        System.out.println(priorityBlockingQueue);
+        System.out.println(priorityBlockingQueue.take());       //取出顺序遵循排序接口
+        System.out.println(priorityBlockingQueue.take());
+        System.out.println(priorityBlockingQueue.take());
+        System.out.println(priorityBlockingQueue.take());
 
+        //该队列较特殊，必须先take然后在add
+        SynchronousQueue<String> synchronousQueue = new SynchronousQueue();
+        new Thread(() -> {
+            String element = null;
+            try {
+                element = synchronousQueue.take();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("取出元素：" + element);
+        }).start();
 
-
+        new Thread(() -> {
+            synchronousQueue.add("1");
+        }).start();
 
     }
 }
