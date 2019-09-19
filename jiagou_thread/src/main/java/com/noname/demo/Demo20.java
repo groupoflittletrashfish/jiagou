@@ -2,10 +2,7 @@ package com.noname.demo;
 
 import lombok.*;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -28,12 +25,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <p>
  * *若使用的是无界队列（最大线程数将会失效，因为当核心线程数使用完后，新的任务会不断的加入无界队列中，不会出现拒绝策略，直到内存消耗殆尽）
  */
+
 public class Demo20 {
 
     private static AtomicInteger count = new AtomicInteger(0);
 
     public static void main(String[] args) throws InterruptedException {
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 2, 60, TimeUnit.SECONDS.SECONDS, new ArrayBlockingQueue<Runnable>(3));
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 2, 60, TimeUnit.SECONDS.SECONDS, new ArrayBlockingQueue<Runnable>(3),new Refuse());
         Task t1 = new Task(1, "任务1");
         Task t2 = new Task(2, "任务2");
         Task t3 = new Task(3, "任务3");
@@ -92,6 +90,17 @@ public class Demo20 {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    /**
+     * 自定义的拒绝策略
+     */
+    static class Refuse implements RejectedExecutionHandler {
+
+        @Override
+        public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {    //参数1：任务对象；参数2：线程池
+            System.out.println("当前被拒绝的任务:" + r.toString());
         }
     }
 }
